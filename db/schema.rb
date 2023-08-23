@@ -10,16 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_23_052919) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_23_061819) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "habits", force: :cascade do |t|
     t.string "name"
-    t.boolean "done_today"
-    t.integer "hot_streak"
-    t.integer "hot_record"
-    t.integer "cold_streak"
+    t.boolean "done_today", default: false
+    t.integer "hot_streak", default: 0
+    t.integer "hot_record", default: 0
+    t.integer "cold_streak", default: 0
     t.date "date_last_done"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
