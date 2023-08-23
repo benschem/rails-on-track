@@ -1,34 +1,17 @@
 <div id="<%= dom_id habit %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Name:</strong>
-    <%= habit.name %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Done today:</strong>
-    <%= habit.done_today %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Hot streak:</strong>
-    <%= habit.hot_streak %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Hot record:</strong>
-    <%= habit.hot_record %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Cold streak:</strong>
-    <%= habit.cold_streak %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Date last done:</strong>
-    <%= habit.date_last_done %>
-  </p>
-
+  <div class="border-2 border-black <%= habit.done_today ? "bg-red" : "bg-green" %>">
+    <h3>🏆 <%= habit.hot_record %></h3>
+    <h2><%= habit.name %></h2>
+    <h3>
+      <% if habit.hot_streak > habit.cold_streak %>
+        <%= "🔥 #{habit.hot_streak}" %>
+      <% else %>
+        <%= "🚫 #{habit.cold_streak}" %>
+      <% end %>
+    </h3>
+    <% days_ago = (Date.today - habit.date_last_done).to_i %>
+    <h4>Last done: <%= days_ago %> <%= days_ago == 1 ? 'day' : 'days' %> ago.</h4>
+  </div>
   <% if action_name != "show" %>
     <%= link_to "Show this habit", habit, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <%= link_to 'Edit this habit', edit_habit_path(habit), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
