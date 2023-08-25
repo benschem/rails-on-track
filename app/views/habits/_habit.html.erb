@@ -1,20 +1,29 @@
-<div id="<%= dom_id habit %>">
-  <div class="border-2 border-black <%= habit.done_today ? "bg-red" : "bg-green" %>">
-    <h3>🏆 <%= habit.hot_record %></h3>
-    <h2><%= habit.name %></h2>
-    <h3>
+<div id="<%= dom_id habit %>" class="m-2 p-2 grid grid-cols-3 grid-gap-2 justify-between items-center rounded-md shadow-lg shadow-purple-300 <%= habit.done_today ? "bg-green-200" : "bg-white" %>">
+  <div class="text-start">
+    <p>
       <% if habit.hot_streak > habit.cold_streak %>
         <%= "🔥 #{habit.hot_streak}" %>
       <% else %>
         <%= "🚫 #{habit.cold_streak}" %>
       <% end %>
-    </h3>
-    <% days_ago = (Date.today - habit.date_last_done).to_i %>
-    <h4>Last done: <%= days_ago %> <%= days_ago == 1 ? 'day' : 'days' %> ago.</h4>
+    </p>
+    <p>🏆 <%= habit.hot_record %></p>
   </div>
+  <h2 class="text-center text-2xl"><%= habit.name %></h2>
+  <% days_ago = (Date.today - habit.date_last_done).to_i %>
+  <p class="text-end italic text-sm font-light">
+    <% if days_ago == 1 %>
+      Yesterday
+    <% else %>
+      <%= days_ago %> days ago
+    <% end %>
+  </p>
   <% if action_name != "show" %>
-    <%= link_to "Show this habit", habit, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to 'Edit this habit', edit_habit_path(habit), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
+    <%= link_to habit do %>
+      Show
+    <% end %>
+    <%= link_to edit_habit_path(habit) do %>
+      Edit <%# replace with icon %>
+    <% end %>
   <% end %>
 </div>
