@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'pages#home'
+  root to: 'habits#index'
   devise_for :users
   resources :habits
 end

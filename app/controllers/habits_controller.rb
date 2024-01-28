@@ -38,6 +38,7 @@ class HabitsController < ApplicationController
   def update
     respond_to do |format|
       if @habit.update(habit_params)
+        @habit.done_today ? @habit.mark_done : @habit.unmark_done
         format.html { redirect_to habit_url(@habit), notice: "Habit was successfully updated." }
         format.json { render :show, status: :ok, location: @habit }
       else
