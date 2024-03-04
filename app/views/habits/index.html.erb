@@ -3,9 +3,18 @@
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
 
-  <div class="flex justify-between items-center">
+  <div class="p-2 flex justify-between items-center">
     <h1 class="font-bold text-4xl">Habits</h1>
-    <%= link_to 'New habit', new_habit_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+    <div>
+      <label for="sort">Sort by:</label>
+      <select name="sort" id="sort">
+        <option value="custom">Custom order</option>
+        <option value="streak">Streak length</option>
+        <option value="record">Record length</option>
+        <option value="last-done">Last done</option>
+      </select> 
+    </div>
+    <%= link_to 'New habit', new_habit_path, class: "rounded-2xl py-3 px-5 bg-purple-600 text-white block font-medium" %>
   </div>
 
   <div id="habits" class="min-w-full">
