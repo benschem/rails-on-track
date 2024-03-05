@@ -4,7 +4,7 @@
     <h1 class="font-bold text-4xl">Habits</h1>
     <div>
       <label for="sort">Sort by:</label>
-      <select name="sort" id="sort">
+      <select name="sort" id="sort" data-controller="sort">
         <option value="custom">Custom order</option>
         <option value="streak">Streak length</option>
         <option value="record">Record length</option>
@@ -14,9 +14,9 @@
   </div>
   <div data-controller="show-form" class="mt-5">
     <button
-      class="rounded-2xl py-3 px-5 bg-purple-600 text-white block font-medium"
+      class="rounded-2xl py-3 px-5 bg-purple-600 text-white font-medium"
       data-action="click->show-form#fire">
-      New Habit
+      Add a new habit
     </button>
     <div data-show-form-target="form" class="hidden">
       <%= render "form", habit: @habit %>
