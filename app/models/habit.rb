@@ -1,4 +1,6 @@
 class Habit < ApplicationRecord
+  validates :name, presence: true, length: { minimum: 3 }
+
   def mark_done
     self.done_today = true
     self.hot_streak += 1
@@ -23,8 +25,8 @@ class Habit < ApplicationRecord
     else
       days_ago = (Date.today - date_last_done).to_i
       case days_ago
-      when 0 then last_done = "today"
-      when 1 then last_done = "yesterday"
+      when 0 then last_done = "Today"
+      when 1 then last_done = "Yesterday"
       else
         last_done = "#{days_ago} days ago"
       end

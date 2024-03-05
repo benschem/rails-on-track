@@ -1,5 +1,5 @@
-<div id="<%= dom_id habit %>" class="m-2 p-2 grid grid-cols-3 grid-gap-2 justify-between items-center rounded-md shadow-lg shadow-purple-300 <%= habit.done_today ? "bg-green-200" : "bg-white" %>">
-  <%= link_to(habit_path(habit, habit: { done_today: !habit.done_today? }), data: { turbo_method: :patch }) do %>
+<%= link_to(habit_path(habit, habit: { done_today: !habit.done_today? }), data: { turbo_method: :patch }) do %>
+  <div id="<%= dom_id habit %>" class="m-2 p-2 grid grid-cols-3 grid-gap-2 justify-between items-center rounded-md shadow-lg shadow-purple-300 <%= habit.done_today ? "bg-green-200" : "bg-white" %>">
     <div class="text-start">
       <p>
         <% if habit.hot_streak > habit.cold_streak %>
@@ -12,13 +12,5 @@
     </div>
     <h2 class="text-center text-2xl"><%= habit.name %></h2>
     <p class="text-end italic text-sm font-light"><%= habit.last_done %></p>
-    <% if action_name != "show" %>
-      <%= link_to habit do %>
-        Show
-      <% end %>
-      <%= link_to edit_habit_path(habit) do %>
-        Edit <%# replace with icon %>
-      <% end %>
-    <% end %>
-  <% end %>
-</div>
+  </div>
+<% end %>

@@ -1,13 +1,9 @@
 class HabitsController < ApplicationController
-  before_action :set_habit, only: %i[ show edit update destroy ]
+  before_action :set_habit, only: %i[ edit update destroy ]
 
   # GET /habits or /habits.json
   def index
     @habits = Habit.all
-  end
-
-  # GET /habits/1 or /habits/1.json
-  def show
   end
 
   # GET /habits/new
@@ -40,7 +36,7 @@ class HabitsController < ApplicationController
       if @habit.update(habit_params)
         @habit.done_today ? @habit.mark_done : @habit.unmark_done
         @habit.save!
-        format.html { redirect_to habits_path, notice: "Habit was successfully updated." }
+        format.html { redirect_to habits_path, notice: "#{@habit.name} was successfully updated." }
         format.json { render :show, status: :ok, location: @habit }
       else
         format.html { render :index, status: :unprocessable_entity }
@@ -54,7 +50,7 @@ class HabitsController < ApplicationController
     @habit.destroy
 
     respond_to do |format|
-      format.html { redirect_to habits_url, notice: "Habit was successfully destroyed." }
+      format.html { redirect_to habits_url, notice: "#{@habit.name} was successfully destroyed." }
       format.json { head :no_content }
     end
   end
