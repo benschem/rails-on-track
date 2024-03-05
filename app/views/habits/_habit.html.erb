@@ -1,29 +1,24 @@
 <div id="<%= dom_id habit %>" class="m-2 p-2 grid grid-cols-3 grid-gap-2 justify-between items-center rounded-md shadow-lg shadow-purple-300 <%= habit.done_today ? "bg-green-200" : "bg-white" %>">
-  <div class="text-start">
-    <p>
-      <% if habit.hot_streak > habit.cold_streak %>
-        <%= "🔥 #{habit.hot_streak}" %>
-      <% else %>
-        <%= "🚫 #{habit.cold_streak}" %>
+  <%= link_to(habit_path(habit, habit: { done_today: !habit.done_today? }), data: { turbo_method: :patch }) do %>
+    <div class="text-start">
+      <p>
+        <% if habit.hot_streak > habit.cold_streak %>
+          <%= "🔥 #{habit.hot_streak}" %>
+        <% else %>
+          <%= "🚫 #{habit.cold_streak}" %>
+        <% end %>
+      </p>
+      <p>🏆 <%= habit.hot_record %></p>
+    </div>
+    <h2 class="text-center text-2xl"><%= habit.name %></h2>
+    <p class="text-end italic text-sm font-light"><%= habit.last_done %></p>
+    <% if action_name != "show" %>
+      <%= link_to habit do %>
+        Show
       <% end %>
-    </p>
-    <p>🏆 <%= habit.hot_record %></p>
-  </div>
-  <h2 class="text-center text-2xl"><%= habit.name %></h2>
-  <% days_ago = (Date.today - habit.date_last_done).to_i %>
-  <p class="text-end italic text-sm font-light">
-    <% if days_ago == 1 %>
-      Yesterday
-    <% else %>
-      <%= days_ago %> days ago
-    <% end %>
-  </p>
-  <% if action_name != "show" %>
-    <%= link_to habit do %>
-      Show
-    <% end %>
-    <%= link_to edit_habit_path(habit) do %>
-      Edit <%# replace with icon %>
+      <%= link_to edit_habit_path(habit) do %>
+        Edit <%# replace with icon %>
+      <% end %>
     <% end %>
   <% end %>
 </div>

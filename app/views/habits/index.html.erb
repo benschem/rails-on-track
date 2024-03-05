@@ -12,12 +12,12 @@
         <option value="streak">Streak length</option>
         <option value="record">Record length</option>
         <option value="last-done">Last done</option>
-      </select> 
+      </select>
     </div>
     <%= link_to 'New habit', new_habit_path, class: "rounded-2xl py-3 px-5 bg-purple-600 text-white block font-medium" %>
   </div>
 
-  <div id="habits" class="min-w-full">
+  <div id="habits" class="">
     <%= render @habits %>
   </div>
 </div>

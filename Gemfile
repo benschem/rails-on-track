@@ -80,3 +80,6 @@ gem "devise", "~> 4.9"
 
 # Use Simple Form for better forms
 gem "simple_form", "~> 5.2"
+
+# Better developer experience
+gem 'htmlbeautifier'
