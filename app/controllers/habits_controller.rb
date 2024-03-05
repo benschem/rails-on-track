@@ -4,10 +4,6 @@ class HabitsController < ApplicationController
   # GET /habits or /habits.json
   def index
     @habits = Habit.all
-  end
-
-  # GET /habits/new
-  def new
     @habit = Habit.new
   end
 

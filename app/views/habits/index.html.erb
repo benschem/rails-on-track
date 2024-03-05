@@ -11,7 +11,16 @@
         <option value="last-done">Last done</option>
       </select>
     </div>
-    <%= link_to 'New habit', new_habit_path, class: "rounded-2xl py-3 px-5 bg-purple-600 text-white block font-medium" %>
+  </div>
+  <div data-controller="show-form" class="mt-5">
+    <button
+      class="rounded-2xl py-3 px-5 bg-purple-600 text-white block font-medium"
+      data-action="click->show-form#fire">
+      New Habit
+    </button>
+    <div data-show-form-target="form" class="hidden">
+      <%= render "form", habit: @habit %>
+    </div>
   </div>
   <% sorted_habits = @habits.sort_by { |habit| habit.created_at } %>
   <% sorted_habits.reverse! %>
