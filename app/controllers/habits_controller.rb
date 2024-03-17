@@ -61,4 +61,14 @@ class HabitsController < ApplicationController
     def habit_params
       params.require(:habit).permit(:name, :done_today, :hot_streak, :hot_record, :cold_streak, :date_last_done)
     end
+
+    def sort_habits_by(habits, user_choice)
+      case user_choice
+      when "date-created" then sorted_habits = habits.sort_by { |habit| habit.created_at }
+      when "streak" then sorted_habits = habits.sort_by { |habit| habit.hot_streak }
+      when "record" then sorted_habits = habits.sort_by { |habit| habit.hot_record }
+      when "last-done" then sorted_habits = habits.sort_by { |habit| habit.date_last_done }
+      end
+      sorted_habits.reverse!
+    end
 end

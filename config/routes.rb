@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'habits#index'
+  root to: 'pages#home'
   devise_for :users
   resources :habits, except: [:show, :new]
 end

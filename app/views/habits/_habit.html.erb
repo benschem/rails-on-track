@@ -1,5 +1,5 @@
 <%= link_to(habit_path(habit, habit: { done_today: !habit.done_today? }), data: { turbo_method: :patch }) do %>
-  <div id="<%= dom_id habit %>" class="m-2 p-2 grid grid-cols-3 grid-gap-2 justify-between items-center rounded-md shadow-lg shadow-purple-300 <%= habit.done_today ? "bg-green-200" : "bg-white" %>">
+  <div id="<%= dom_id habit %>" class="m-2 p-2 grid grid-cols-3 grid-gap-2 items-center rounded-md shadow-lg shadow-purple-300 <%= habit.done_today ? "bg-green-200" : "bg-white" %>">
     <div class="text-start">
       <p>
         <% if habit.hot_streak > habit.cold_streak %>

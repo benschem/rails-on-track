@@ -1,12 +1,9 @@
+<%= render "shared/flashes" %>
 <%= form_with(model: habit, class: "contents") do |form| %>
   <div class="flex">
-    <div class="my-5">
-      <%= form.label :name %>
-      <%= form.text_field :name, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-    </div>
-    <div class="">
-      <%= form.submit class: "rounded-lg py-3 px-5 bg-purple-600 text-white inline-block font-medium cursor-pointer" %>
-    </div>
+    <%= form.label :name, class: "" %>
+    <%= form.text_field :name, class: "ml-2 block shadow rounded-md border border-gray-200 outline-none" %>
+    <%= form.submit class: "ml-2 rounded-2xl py-2 px-5 bg-purple-600 text-white inline-block font-medium cursor-pointer" %>
   </div>
   <% if habit.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">

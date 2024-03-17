@@ -1,0 +1,14 @@
+<div data-controller="show-form" class="">
+  <button
+      class="mb-2 py-2 px-5 rounded-2xl  bg-purple-600 text-white font-medium"
+      data-show-form-target="button"
+      data-action="click->show-form#fire">
+    Add
+  </button>
+  <div data-show-form-target="form" class="hidden">
+    <%= render "habits/form", habit: @habit %>
+  </div>
+</div>
+<div class="mt-2">
+  <%= render "habits/index", habits: @habits %>
+</div>
