@@ -2,18 +2,14 @@ import { Controller } from "@hotwired/stimulus";
 
 // Connects to data-controller="show-form"
 export default class extends Controller {
-  static targets = ["form", "button"];
+  static targets = ["formArea", "button"];
 
-  connect() {
-    console.log("hello from form-controller");
-  }
-
-  fire() {
-    this.formTarget.classList.toggle("hidden");
-    if (this.formTarget.classList.contains("hidden")) {
-      this.buttonTarget.innerText = "Add";
+  toggle() {
+    this.formAreaTarget.classList.toggle("hidden");
+    if (this.formAreaTarget.classList.contains("hidden")) {
+      this.buttonTarget.innerHTML = '<i class="fa fa-plus"></i>';
     } else {
-      this.buttonTarget.innerText = "Hide";
+      this.buttonTarget.innerHTML = '<i class="fa fa-minus"></i>';
     }
   }
 }

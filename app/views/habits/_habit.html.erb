@@ -1,16 +1,24 @@
-<%= link_to(habit_path(habit, habit: { done_today: !habit.done_today? }), data: { turbo_method: :patch }) do %>
-  <div id="<%= dom_id habit %>" class="m-2 p-2 grid grid-cols-3 grid-gap-2 items-center rounded-md shadow-lg shadow-purple-300 <%= habit.done_today ? "bg-green-200" : "bg-white" %>">
-    <div class="text-start">
-      <p>
-        <% if habit.hot_streak > habit.cold_streak %>
-          <%= "🔥 #{habit.hot_streak}" %>
-        <% else %>
-          <%= "🚫 #{habit.cold_streak}" %>
-        <% end %>
-      </p>
-      <p>🏆 <%= habit.hot_record %></p>
+<div class="flex w-full mb-4">
+  <%= link_to habit_path(habit), data: { turbo_method: :delete }, class: 'mr-2 flex items-center' do %>
+    <i class="fa fa-trash"></i>
+  <% end %>
+  <%= link_to habit_path(habit, habit: { done_today: !habit.done_today?, sort_by: @sorted_by }, data: { turbo_method: :patch }), class: 'flex-grow' do %>
+    <div id="<%= dom_id habit %>" class="min-w-fit py-2 px-4 flex justify-between items-center rounded-2xl shadow-md shadow-purple-300 <%= habit.done_today ? "bg-green-200" : "bg-white" %>">
+      <div class="text-start flex-shrink-0">
+        <p>
+          <% if habit.hot_streak > habit.cold_streak %>
+            <%= "🔥 #{habit.hot_streak}" %>
+          <% else %>
+            <%= "🚫 #{habit.cold_streak}" %>
+          <% end %>
+        </p>
+        <p>🏆 <%= habit.hot_record %></p>
+      </div>
+      <h2 class="mx-2 text-center text-2xl"><%= habit.name %></h2>
+      <p class="text-end italic text-sm font-light flex-shrink-0"><%= habit.last_done %></p>
     </div>
-    <h2 class="text-center text-2xl"><%= habit.name %></h2>
-    <p class="text-end italic text-sm font-light"><%= habit.last_done %></p>
-  </div>
-<% end %>
+  <% end %>
+  <p class="ml-2 flex items-center cursor-pointer">
+    <i class="fa fa-pencil"></i>
+  </p>
+</div>

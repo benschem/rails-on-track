@@ -83,3 +83,6 @@ gem "simple_form", "~> 5.2"
 
 # Better developer experience
 # gem 'htmlbeautifier'
+
+# Icons
+gem "font-awesome-rails"

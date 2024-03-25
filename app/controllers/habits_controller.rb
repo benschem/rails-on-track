@@ -3,8 +3,19 @@ class HabitsController < ApplicationController
 
   # GET /habits or /habits.json
   def index
-    @habits = Habit.all
+    if params[:sort_by]
+      @habits = sort_habits
+    else
+      @habits = Habit.all.order(created_at: :desc)
+    end
     @habit = Habit.new
+    @sorted_by = params[:sort_by]
+
+    respond_to do |format|
+      format.html
+      format.js
+      format.json { render json: @habits }
+    end
   end
 
   # GET /habits/1/edit
@@ -29,10 +40,11 @@ class HabitsController < ApplicationController
   # PATCH/PUT /habits/1 or /habits/1.json
   def update
     respond_to do |format|
+      sort_by = params[:habit].delete(:sort_by)
       if @habit.update(habit_params)
         @habit.done_today ? @habit.mark_done : @habit.unmark_done
         @habit.save!
-        format.html { redirect_to habits_path, notice: "#{@habit.name} was successfully updated." }
+        format.html { redirect_to habits_path(sort_by: sort_by), notice: "#{@habit.name} was successfully updated." }
         format.json { render :show, status: :ok, location: @habit }
       else
         format.html { render :index, status: :unprocessable_entity }
@@ -53,22 +65,21 @@ class HabitsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_habit
-      @habit = Habit.find(params[:id])
-    end
+  def set_habit
+    @habit = Habit.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def habit_params
-      params.require(:habit).permit(:name, :done_today, :hot_streak, :hot_record, :cold_streak, :date_last_done)
-    end
+  # Only allow a list of trusted parameters through.
+  def habit_params
+    params.fetch(:habit, {}).permit(:name, :done_today, :hot_streak, :hot_record, :cold_streak, :date_last_done, :sort_by)
+  end
 
-    def sort_habits_by(habits, user_choice)
-      case user_choice
-      when "date-created" then sorted_habits = habits.sort_by { |habit| habit.created_at }
-      when "streak" then sorted_habits = habits.sort_by { |habit| habit.hot_streak }
-      when "record" then sorted_habits = habits.sort_by { |habit| habit.hot_record }
-      when "last-done" then sorted_habits = habits.sort_by { |habit| habit.date_last_done }
-      end
-      sorted_habits.reverse!
+  def sort_habits
+    case params[:sort_by]
+    when "created" then @habits = Habit.all.order(created_at: :desc)
+    when "streak" then @habits = Habit.all.order(Arel.sql('CASE WHEN hot_streak > 0 THEN hot_streak ELSE 0 END DESC, cold_streak ASC'))
+    when "record" then @habits = Habit.all.order(hot_record: :desc)
+    when "done" then @habits = Habit.all.order(Arel.sql('CASE WHEN date_last_done IS NULL THEN 1 ELSE 0 END, date_last_done DESC'))
     end
+  end
 end
