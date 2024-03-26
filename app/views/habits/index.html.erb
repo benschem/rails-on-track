@@ -1,40 +1,37 @@
-<div class="bg-purple-600 w-full">
-</div>
 <h1 class="my-8 text-4xl font-black text-center ">Your Daily Habits</h1>
-<div data-controller="show-form" class="mb-4 flex flex-col items-center mx-auto">
+<div data-controller="toggle-new close-flash" class="mb-4 flex flex-col items-center mx-auto">
   <div class="w-full flex justify-between">
     <button
-        class="py-1 px-5 rounded-2xl shadow-md shadow-purple-300 bg-purple-600 text-white font-medium"
-        data-show-form-target="button"
-        data-action="click->show-form#toggle">
+        class="h-full py-1 px-4 rounded-2xl bg-purple-600 text-white font-medium self-center"
+        data-toggle-edit-target="button"
+        data-action="click->toggle-edit#toggle">
       <i class="fa fa-edit"></i>
     </button>
     <div class="flex items-center">
       <%= form_tag habits_path, method: :get, class: "flex items-center mr-2" do %>
         <%= label_tag :sort_by, "Sort:", class: "whitespace-nowrap mr-2 font-medium text-gray-900 dark:text-white" %>
         <% select_options = [
-        ['Date Created', 'created'],
-        ['Streak Length', 'streak'],
-        ['Record Length', 'record'],
-        ['Last Completed', 'done']
-    ] %>
+          ['Date Created', 'created'],
+          ['Streak Length', 'streak'],
+          ['Record Length', 'record'],
+          ['Last Completed', 'done']
+        ] %>
         <%= select_tag :sort_by, options_for_select(select_options, @sorted_by), class: "shadow-md shadow-purple-300 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full focus:ring-purple-500 focus:border-purple-500  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500", onchange: 'this.form.submit()' %>
       <% end %>
       <i class="fa fa-sort cursor-pointer"></i>
     </div>
     <button
-        class="py-1 px-5 rounded-2xl shadow-md shadow-purple-300 bg-purple-600 text-white font-medium"
-        data-show-form-target="button"
-        data-action="click->show-form#toggle">
+        class="h-full py-1 px-4 rounded-2xl bg-purple-600 text-white font-medium self-center"
+        data-toggle-new-target="button"
+        data-action="click->toggle-new#toggle">
       <i class="fa fa-plus"></i>
     </button>
   </div>
-  <div data-show-form-target="formArea" class="mt-4 p-4 w-full bg-purple-300 hidden rounded-2xl shadow-md shadow-purple-400">
-    <%= render "habits/form", habit: @habit %>
-  </div>
+  <%= render "shared/flashes" %>
+  <%= render "habits/new", habit: @habit %>
 </div>
-<div class="mx-auto">
+<div class="mx-auto" data-controller="edit-name">
   <% @habits.each do |habit| %>
-    <%= render "habits/habit", habit: habit %>
+    <%= render "habits/show", habit: habit %>
   <% end %>
 </div>

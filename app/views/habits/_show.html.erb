@@ -1,0 +1,25 @@
+<div class="flex w-full mb-4">
+  <%= link_to habit_path(habit), data: { turbo_method: :delete, "toggle-edit-target" => "delete"  }, class: 'hidden mr-2 flex items-center' do %>
+    <i class="fa fa-trash"></i>
+  <% end %>
+  <%= link_to habit_path(habit, habit: { done_today: !habit.done_today?, sort_by: @sorted_by }), data: { turbo_method: :patch }, class: 'flex-grow' do %>
+    <div id="<%= dom_id habit %>" class="min-w-fit py-2 px-4 flex items-center rounded-2xl shadow-md shadow-purple-300 <%= habit.done_today ? "bg-green-200" : "bg-white" %>">
+      <div class="w-16 shrink-0 text-start">
+        <p>
+          <% if habit.hot_streak > habit.cold_streak %>
+            <%= "🔥 #{habit.hot_streak}" %>
+          <% else %>
+            <%= "🚫 #{habit.cold_streak}" %>
+          <% end %>
+        </p>
+        <p>🏆 <%= habit.hot_record %></p>
+      </div>
+      <h2 data-edit-name-target="name" class="grow shrink text-pretty text-left text-2xl"><%= habit.name %></h2>
+      <%= render "habits/edit", habit: habit %>
+      <p class="ml-2 grow-0 text-end italic text-sm font-light"><%= habit.last_done %></p>
+    </div>
+  <% end %>
+  <p data-toggle-edit-target="edit" data-edit-name-target="pencil" data-action="click->edit-name#edit" class="hidden ml-2 flex items-center cursor-pointer">
+    <i class="fa fa-pencil"></i>
+  </p>
+</div>

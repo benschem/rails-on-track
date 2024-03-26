@@ -10,12 +10,6 @@ class HabitsController < ApplicationController
     end
     @habit = Habit.new
     @sorted_by = params[:sort_by]
-
-    respond_to do |format|
-      format.html
-      format.js
-      format.json { render json: @habits }
-    end
   end
 
   # GET /habits/1/edit
@@ -26,15 +20,17 @@ class HabitsController < ApplicationController
   def create
     @habit = Habit.new(habit_params)
 
-    respond_to do |format|
-      if @habit.save
-        format.html { redirect_to habit_url(@habit), notice: "Habit was successfully created." }
-        format.json { render :show, status: :created, location: @habit }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @habit.errors, status: :unprocessable_entity }
+    if @habit.save
+      redirect_to habit_url(@habit), notice: "#{@habit.name} was successfully created."
+    else
+      if @habit.errors.any?
+        @habit.errors.each do |error|
+          flash[:alert] = error.full_message
+        end
       end
+      render partial: "habits/new", locals: { habit: @habit }, status: :unprocessable_entity
     end
+\
   end
 
   # PATCH/PUT /habits/1 or /habits/1.json
@@ -44,11 +40,9 @@ class HabitsController < ApplicationController
       if @habit.update(habit_params)
         @habit.done_today ? @habit.mark_done : @habit.unmark_done
         @habit.save!
-        format.html { redirect_to habits_path(sort_by: sort_by), notice: "#{@habit.name} was successfully updated." }
-        format.json { render :show, status: :ok, location: @habit }
+        redirect_to habits_path(sorted_by: sort_by), notice: "#{@habit.name} was successfully updated."
       else
-        format.html { render :index, status: :unprocessable_entity }
-        format.json { render json: @habit.errors, status: :unprocessable_entity }
+        render :index, status: :unprocessable_entity
       end
     end
   end
@@ -56,11 +50,7 @@ class HabitsController < ApplicationController
   # DELETE /habits/1 or /habits/1.json
   def destroy
     @habit.destroy
-
-    respond_to do |format|
-      format.html { redirect_to habits_url, notice: "#{@habit.name} was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to habits_url, notice: "#{@habit.name} was deleted."
   end
 
   private

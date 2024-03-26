@@ -99,6 +99,8 @@ GEM
       dotenv (= 2.8.1)
       railties (>= 3.2)
     erubi (1.12.0)
+    faker (3.3.0)
+      i18n (>= 1.8.11, < 2)
     font-awesome-rails (4.7.0.8)
       railties (>= 3.2, < 8.0)
     globalid (1.1.0)
@@ -111,9 +113,6 @@ GEM
     io-console (0.6.0)
     irb (1.7.4)
       reline (>= 0.3.6)
-    jbuilder (2.11.5)
-      actionview (>= 5.0.0)
-      activesupport (>= 5.0.0)
     loofah (2.21.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -245,9 +244,9 @@ DEPENDENCIES
   debug
   devise (~> 4.9)
   dotenv-rails
+  faker
   font-awesome-rails
   importmap-rails
-  jbuilder
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.7)
