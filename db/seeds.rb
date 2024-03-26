@@ -1,10 +1,18 @@
 require 'faker'
 
+puts "Deleting all users..."
+User.destroy_all
+
 puts "Deleting all habits..."
 Habit.destroy_all
 
-puts "Creating new habits..."
+puts "Creating a new user..."
+user = User.create!(email: "test@test.com", password: "secret", password_confirmation: "secret")
+if user.errors.present?
+  raise StandardError, "User has errors: #{user.errors.full_messages}"
+end
 
+puts "Creating new habits..."
 100.times do
   name = Faker::Hobby.unique.activity
   created_days_ago = Faker::Number.within(range: 0..365)
@@ -26,14 +34,15 @@ puts "Creating new habits..."
     date_last_done: date_last_done,
     previous_cold_streak: previous_cold_streak,
     previous_date_last_done: previous_date_last_done,
-    created_at: created_at
+    created_at: created_at,
+    user: user
   )
 
   unless habit.save
     puts "Error creating habit."
-    if habit.errors.any?
+    if habit.errors.present?
       habit.errors.each do |error|
-        puts "#{error.full_message}"
+        raise StandardError, "#{error.full_message}"
       end
     end
   end

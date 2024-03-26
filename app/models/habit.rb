@@ -1,5 +1,6 @@
 class Habit < ApplicationRecord
   validates :name, presence: true, length: { minimum: 3 }
+  belongs_to :user
 
   def mark_done
     self.done_today = true

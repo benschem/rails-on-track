@@ -1,4 +1,4 @@
-<div class="flex w-full mb-4">
+<div class="flex w-full mb-4" data-controller="prevent-link-click">
   <%= link_to habit_path(habit), data: { turbo_method: :delete, "toggle-edit-target" => "delete"  }, class: 'hidden mr-2 flex items-center' do %>
     <i class="fa fa-trash"></i>
   <% end %>

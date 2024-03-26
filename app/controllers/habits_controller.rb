@@ -1,4 +1,5 @@
 class HabitsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_habit, only: %i[ edit update destroy ]
 
   # GET /habits or /habits.json
@@ -18,7 +19,7 @@ class HabitsController < ApplicationController
 
   # POST /habits or /habits.json
   def create
-    @habit = Habit.new(habit_params)
+    @habit = current_user.habits.build(habit_params)
 
     if @habit.save
       redirect_to habit_url(@habit), notice: "#{@habit.name} was successfully created."
