@@ -1,35 +1,38 @@
-<h1 class="my-4 text-4xl font-black text-center ">Your Daily Habits</h1>
-<div data-controller="toggle-new close-flash sort-order" class="mb-4 flex flex-col items-center mx-auto">
-  <div class="w-full flex justify-between">
-    <button
-        class="h-full py-1 px-4 rounded-2xl bg-purple-600 text-white font-medium self-center"
-        data-toggle-edit-target="button"
-        data-action="click->toggle-edit#toggle">
-      <i class="fa fa-edit"></i>
-    </button>
-    <div class="flex items-center">
-      <%= form_tag habits_path, method: :get, class: "flex items-center mr-2" do %>
-        <%= label_tag :sort_by, "Sort:", class: "whitespace-nowrap mr-2 font-medium text-gray-900 dark:text-white" %>
-        <% select_options = [
-          ['Date Created', 'created'],
-          ['Streak Length', 'streak'],
-          ['Record Length', 'record'],
-          ['Last Completed', 'done']
-        ] %>
-        <%= select_tag :sort_by, options_for_select(select_options, @sorted_by), class: "shadow-md shadow-purple-300 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full focus:ring-purple-500 focus:border-purple-500  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500", onchange: 'this.form.submit()' %>
-      <% end %>
-      <i class="fa fa-sort cursor-pointer" data-sort-order-target="icon" data-action="click->sort-order#reverse"></i>
-    </div>
-    <button
-        class="h-full py-1 px-4 rounded-2xl bg-purple-600 text-white font-medium self-center"
-        data-toggle-new-target="button"
-        data-action="click->toggle-new#toggle">
-      <i class="fa fa-plus"></i>
+<h2 class="my-4 text-center text-accent italic text-3xl">Get it done!</h2>
+<h1 class="my-4 text-4xl font-black text-center text-secondary">Your Daily Habits</h1>
+<div data-controller="sort-order" class="mb-4 flex items-center justify-between">
+  <div class="flex">
+    <%= form_tag habits_path, method: :get, class: "" do %>
+      <%= label_tag :sort_by, "Sort:", class: "whitespace-nowrap mr-2 font-medium text-secondary" %>
+      <% select_options = [
+            ['Date Created', 'created'],
+            ['Streak Length', 'streak'],
+            ['Record Length', 'record'],
+            ['Last Completed', 'done']
+          ] %>
+      <%= select_tag :sort_by, options_for_select(select_options, @sorted_by), class: "border border-secondary text-secondary text-sm rounded-sm focus:ring-accent", onchange: 'this.form.submit()' %>
+    <% end %>
+    <button class="ml-2 cursor-pointer text-secondary hover:text-secondary-600" data-sort-order-target="icon" data-action="click->sort-order#reverse">
+      <i class="fa fa-sort"></i>
     </button>
   </div>
-  <%= render "shared/flashes" %>
-  <%= render "habits/new", habit: @habit %>
+  <div>
+    <button
+            class="py-2 px-4 rounded-sm bg-secondary text-white font-medium self-center hover:bg-secondary-600"
+            data-toggle-edit-target="button"
+            data-action="click->toggle-edit#toggle">
+      <i class="fa fa-eye"></i> Show options
+    </button>
+    <button
+            class="py-2 px-4 rounded-sm bg-secondary text-white font-medium self-center hover:bg-secondary-600"
+            data-toggle-new-target="button"
+            data-action="click->toggle-new#toggle">
+      <i class="fa fa-plus"></i> New Habit
+    </button>
+  </div>
 </div>
+<%= render "shared/flashes" %>
+<%= render "habits/new", habit: @habit %>
 <div class="mx-auto" data-controller="edit-name">
   <% @habits.each do |habit| %>
     <%= render "habits/show", habit: habit %>

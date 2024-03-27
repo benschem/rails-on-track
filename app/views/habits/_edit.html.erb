@@ -1,3 +1,6 @@
-<%= form_with(model: habit, class: "hidden w-full mr-1", html: { "data-edit-name-target" => "form" }) do |f| %>
-  <%= f.text_field :name, class: "w-full ml-2 block shadow rounded-md border border-gray-200 outline-none" %>
-<% end %>
+<div data-edit-name-target="form" class="w-full hidden p-4 border border-secondary rounded-sm">
+  <%= form_with(model: habit, class: "w-full mr-2 flex") do |f| %>
+    <%= f.text_field :name, class: "w-full block rounded-sm border border-secondary outline-none" %>
+    <%= f.submit 'Update', class: "ml-4 rounded-sm py-2 px-5 bg-secondary text-white inline-block font-medium cursor-pointer " %>
+  <% end %>
+</div>

@@ -12,9 +12,10 @@ export default class extends Controller {
       deleteTarget.classList.toggle("hidden");
     });
     if (this.editTarget.classList.contains("hidden")) {
-      this.buttonTarget.innerHTML = '<i class="fa fa-edit"></i>';
+      this.buttonTarget.innerHTML = '<i class="fa fa-eye"></i> Show options';
     } else {
-      this.buttonTarget.innerHTML = '<i class="fa fa-eye-slash"></i>';
+      this.buttonTarget.innerHTML =
+        '<i class="fa fa-eye-slash"></i> Hide options';
     }
   }
 }

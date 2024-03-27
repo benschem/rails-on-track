@@ -1,8 +1,8 @@
-<div data-toggle-new-target="form" class="mt-4 p-4 w-full bg-purple-300 hidden rounded-2xl shadow-md shadow-purple-400">
+<div data-toggle-new-target="form" class="mt-4 mb-4 p-4 w-full bg-primary hidden rounded-sm border border-secondary">
   <%= form_with(model: habit, class: "w-full") do |f| %>
     <div class="flex justify-center">
-      <%= f.text_field :name, class: "w-full ml-2 block shadow rounded-md border border-gray-200 outline-none" %>
-      <%= f.submit 'Add', class: "ml-2 rounded-2xl py-2 px-5 bg-purple-600 text-white inline-block font-medium cursor-pointer " %>
+      <%= f.text_field :name, class: "w-full block shadow rounded-sm border border-secondary outline-none" %>
+      <%= f.submit 'Add', class: "ml-4 rounded-sm py-2 px-5 bg-secondary text-white inline-block font-medium cursor-pointer " %>
     </div>
   <% end %>
 </div>

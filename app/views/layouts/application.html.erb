@@ -9,9 +9,9 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-  <body class="bg-purple-100">
+  <body class="bg-primary">
     <%= render "shared/navbar" %>
-    <main class="mx-1 sm:mx-auto max-w-screen-sm" data-controller="toggle-edit">
+    <main class="mx-1 sm:mx-auto max-w-screen-sm " data-controller="toggle-edit toggle-new close-flash">
       <%= yield %>
     </main>
   </body>

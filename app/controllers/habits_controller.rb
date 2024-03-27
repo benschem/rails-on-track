@@ -43,6 +43,11 @@ class HabitsController < ApplicationController
         @habit.save!
         redirect_to habits_path(sorted_by: sort_by), notice: "#{@habit.name} was successfully updated."
       else
+        if @habit.errors.any?
+          @habit.errors.each do |error|
+            flash[:alert] = error.full_message
+          end
+        end
         render :index, status: :unprocessable_entity
       end
     end

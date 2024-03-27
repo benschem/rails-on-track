@@ -1,5 +1,5 @@
 <% if notice %>
-  <div id="notice" data-close-flash-target="flash" class="flex w-full justify-between items-center mt-4 py-2 px-3 bg-green-50 text-green-500 font-medium rounded-lg">
+  <div id="notice" data-close-flash-target="flash" class="mb-4 mt-4 py-2 px-3 flex w-full justify-between items-center bg-green-50 text-green-500 font-medium rounded-lg">
     <%= notice %>
     <button type="button" data-close-flash-target="button" data-action="click->close-flash#close" class="py-1 px-4 rounded-2xl bg-green-200 hover:bg-green-300 focus:outline-none focus:ring focus:ring-green-400" aria-label="Close">
       <i class="fa fa-close"></i>
@@ -7,9 +7,9 @@
   </div>
 <% end %>
 <% if alert %>
-  <div id="alert" data-close-flash-target="flash" class="flex w-full justify-between items-center mt-4 py-2 px-2 bg-red-50 text-red-500 font-medium rounded-lg">
+  <div id="alert" data-close-flash-target="flash" class="mb-4 mt-4 py-2 px-4 flex w-full justify-between items-center bg-alert-200 text-alert-500 font-medium rounded-sm border border-alert-500">
     <%= alert %>
-    <button type="button" data-close-flash-target="button" data-action="click->close-flash#close" class="ml-2 py-1 px-4 rounded-2xl bg-red-200 hover:bg-red-300 focus:outline-none focus:ring focus:ring-red-400" aria-label="Close">
+    <button type="button" data-close-flash-target="button" data-action="click->close-flash#close" class="ml-2 py-1 px-4 rounded-sm text-alert-200 bg-alert-500 hover:bg-alert-400 focus:outline-none focus:ring focus:ring-alert-300" aria-label="Close">
       <i class="fa fa-close"></i>
     </button>
   </div>
